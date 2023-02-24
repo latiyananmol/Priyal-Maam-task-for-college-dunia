@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import Card from "./components/Card";
+import ReactSearchBox from "react-search-box";
+import { dataArray } from './jsonfolderdata/jsondatafile';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+const App = () => {
+  const [collegeName,setCollegeName]=useState("");
+  console.log("collgename",collegeName);
+  const [dataArrayInReact,setDataArray]=useState([...dataArray]);
+  const sortByCollegeDunia=()=>{
+    setDataArray(dataArrayInReact.sort((a,b)=> a.collegeDuniaRatings> b.collegeDuniaRatings?  1:-1).map((ele)=> ele)
+    );
+  }
+const sortByRatings=()=>{
+  setDataArray(dataArrayInReact.sort((a,b)=> a.userRatings> b.userRatings?  1:-1).map((ele)=> ele)
   );
 }
 
-export default App;
+const sortByFee=()=>{
+
+  setDataArray(dataArrayInReact.sort((a,b)=> a.fee> b.fee ?  1:-1).map((ele)=> ele)
+  );
+  
+ 
+}
+  const handleOnChange=(e)=>{
+    setCollegeName(e.target.value)
+  }
+  
+  useEffect(()=>{
+    console.log("this is useeffect");
+    setDataArray(dataArray.filter((ele)=>{
+      if(ele?.nameOfCollge?.toLowerCase().includes(collegeName?.toLowerCase())) return true;
+      else return false;
+
+    } ))
+
+  },[collegeName]);
+
+  return (
+    <>
+<div className="parentdivdashboard">
+<h2 onClick={()=>sortByFee()}>Click here to  Sort By Fees</h2>
+<h2 onClick={()=>sortByRatings()} >Sort By Ratings</h2>
+<h2  onClick={()=>sortByCollegeDunia()}>Sort by collegedunia Ratings</h2>
+
+
+</div>
+<div className="searchbar">
+<span className="collegesearch"><h1>Search By College Name  </h1></span>
+<input className='inputtag'
+placeholder="Enter college Name to Search"
+value={collegeName}
+onChange={handleOnChange}
+
+
+></input>
+</div>
+ <Card dataArrayInReact={dataArrayInReact}></Card>
+ 
+    </>
+  )
+}
+
+export default App
