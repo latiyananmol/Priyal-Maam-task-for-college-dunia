@@ -41,8 +41,8 @@ const sortByFee=()=>{
     <>
 <div className="parentdivdashboard">
 <h2 onClick={()=>sortByFee()}>Click here to  Sort By Fees</h2>
-<h2 onClick={()=>sortByRatings()} >Sort By Ratings</h2>
-<h2  onClick={()=>sortByCollegeDunia()}>Sort by collegedunia Ratings</h2>
+<h2 onClick={()=>sortByRatings()} > Click here to Sort By Ratings</h2>
+<h2  onClick={()=>sortByCollegeDunia()}>Click here to Sort by collegedunia Ratings</h2>
 
 
 </div>
